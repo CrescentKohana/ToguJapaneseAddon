@@ -6,7 +6,9 @@
 
 >Adds partial support for Anki **2.1.49+**. There are still issues with some features, but it should be usable for the most part.
 
->Add readings and pitch accent information to Japanese words, allows playing audio when clicking a word, export pitch accent graphs, convert to katakana, or historical kanji and kana and much more!
+Add readings and pitch accent information to Japanese words, allows playing audio when clicking a word, export pitch accent graphs, convert to katakana, or historical kanji and kana and much more!
+
+Togu (研ぐ) is a Japanese word for "to sharpen (a blade that has gone dull)" 😉.
 
 ### Installation
 

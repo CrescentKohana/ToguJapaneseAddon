@@ -17,6 +17,6 @@ Togu (研ぐ) is a Japanese word for "to sharpen (a blade that has gone dull)" �
 
 ### [Contribution guidelines](./.github/CONTRIBUTING.md)
 
-### License and credits
+### Credits
 
 Forked from [migaku-official/Migaku-Japanese-Addon](https://github.com/migaku-official/Migaku-Japanese-Addon). Original project written by Migaku ltd. License: GNU AGPLv3

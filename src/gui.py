@@ -288,13 +288,7 @@ class JSGui(QScrollArea):
         self.ui.runRulesButton.clicked.connect(self.applyAllRules)
         self.ui.searchRulesLE.returnPressed.connect(self.initRuleSearch)
         self.ui.searchRulesButton.clicked.connect(self.initRuleSearch)
-
-        self.ui.toguInfoSite.clicked.connect(lambda: openLink('https://togu.io'))
-        self.ui.toguPatreonIcon.clicked.connect(lambda: openLink('https://www.patreon.com/Togu'))
-        self.ui.toguInfoYT.clicked.connect(
-            lambda: openLink('https://www.youtube.com/channel/UCQFe3x4WAgm7joN5daMm5Ew'))
-        self.ui.toguInfoTW.clicked.connect(lambda: openLink('https://twitter.com/Togu_Yoga'))
-        self.ui.gitHubIcon.clicked.connect(lambda: openLink('https://github.com/togu-official/Togu-Japanese-Addon'))
+        self.ui.gitHubIcon.clicked.connect(lambda: openLink('https://github.com/Luukuton/ToguJapaneseAddon'))
 
     def initRuleSearch(self):
         text = self.ui.searchRulesLE.text()

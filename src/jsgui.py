@@ -735,71 +735,17 @@ class Ui_Dialog(object):
         self.tab4vl = QtWidgets.QVBoxLayout()
         self.toguAbout = QtWidgets.QGroupBox()
         self.toguAbout.setTitle('Togu')
-        self.toguAboutVL = QtWidgets.QVBoxLayout()
-
-        self.toguAbout.setStyleSheet("QGroupBox { font-weight: bold; } ")
-        self.toguAboutText = QtWidgets.QLabel(
-            "This an original Togu add-on. Togu seeks to be a comprehensive platform for acquiring foreign languages. The official Togu website will be published soon!")
-        self.toguAboutText.setWordWrap(True);
-        self.toguAboutText.setOpenExternalLinks(True);
-        self.toguAbout.setLayout(self.toguAboutVL)
-        self.toguAboutLinksTitle = QtWidgets.QLabel("<b>Links<b>")
-
-        self.toguPatreonIcon = self.getSVGWidget('Patreon.svg')
-        self.toguPatreonIcon.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-
-        self.toguAboutLinksHL3 = QtWidgets.QHBoxLayout()
-
-        self.toguInfo = QtWidgets.QLabel("Togu:")
-        self.toguInfoYT = self.getSVGWidget('Youtube.svg')
-        self.toguInfoSite = self.getSVGWidget('togu.svg')
-        self.toguInfoSite.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-
-        self.toguInfoYT.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-
-        self.toguInfoTW = self.getSVGWidget('Twitter.svg')
-        self.toguInfoTW.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-
-        self.toguAboutLinksHL3.addWidget(self.toguInfo)
-        self.toguAboutLinksHL3.addWidget(self.toguInfoSite)
-        self.toguAboutLinksHL3.addWidget(self.toguInfoYT)
-        self.toguAboutLinksHL3.addWidget(self.toguInfoTW)
-        self.toguAboutLinksHL3.addWidget(self.toguPatreonIcon)
-        self.toguAboutLinksHL3.addStretch()
-
-        self.toguAboutVL.addWidget(self.toguAboutText)
-        self.toguAboutVL.addWidget(self.toguAboutLinksTitle)
-
-        self.toguAboutVL.addLayout(self.toguAboutLinksHL3)
 
         self.toguContact = QtWidgets.QGroupBox()
-        self.toguContact.setTitle('Contact Us')
+        self.toguContact.setTitle('GitHub')
         self.toguContactVL = QtWidgets.QVBoxLayout()
         self.toguContact.setStyleSheet("QGroupBox { font-weight: bold; } ")
-        self.toguContactText = QtWidgets.QLabel(
-            "If you would like to report a bug or contribute to the add-on, the best way to do so is by starting a ticket or pull request on GitHub. If you are looking for personal assistance using the add-on, check out the Togu Patreon Discord Server.")
-        self.toguContactText.setWordWrap(True)
 
         self.gitHubIcon = self.getSVGWidget('Github.svg')
         self.gitHubIcon.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-
-        self.toguThanks = QtWidgets.QGroupBox()
-        self.toguThanks.setTitle('A Word of Thanks')
-        self.toguThanksVL = QtWidgets.QVBoxLayout()
-        self.toguThanks.setStyleSheet("QGroupBox { font-weight: bold; } ")
-        self.toguThanksText = QtWidgets.QLabel(
-            "Thanks so much to all Togu supporters! We would not have been able to develop this add-on or any other Togu project without your support!")
-        self.toguThanksText.setOpenExternalLinks(True);
-        self.toguThanksText.setWordWrap(True);
-        self.toguThanksVL.addWidget(self.toguThanksText)
-
-        self.toguContactVL.addWidget(self.toguContactText)
         self.toguContactVL.addWidget(self.gitHubIcon)
         self.toguContact.setLayout(self.toguContactVL)
-        self.toguThanks.setLayout(self.toguThanksVL)
-        self.tab4vl.addWidget(self.toguAbout)
         self.tab4vl.addWidget(self.toguContact)
-        self.tab4vl.addWidget(self.toguThanks)
         self.tab4vl.addStretch()
         self.tab_4.setLayout(self.tab4vl)
         self.tabWidget.addTab(self.tab_4, "")

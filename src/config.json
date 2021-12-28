@@ -1,0 +1,48 @@
+{
+  "Profiles": ["all"],
+  "AddToguJapaneseTemplate": "on",
+  "LookAhead": 25,
+  "FuriganaFontSize": 4,
+  "BufferedOutput": "off",
+  "AutoCssJsGeneration": "on",
+  "DisplayShapes": "on",
+  "GraphOnHoverBack": "on",
+  "GraphOnHover": "on",
+  "HistoricalConversion": "off",
+  "KatakanaConversion": "off",
+  "Group:Kana;DictForm;Pitch;Audio;Graphs": "on;on;on;off;off",
+  "Individual:Kana;DictForm;Pitch;Audio;Graphs": "off;off;off;on;on",
+  "ColorsHANOK": ["#005CE6", "#E60000", "#E68A00", "#00802B", "#AC00E6"],
+  "PitchGraphFields": "Audio;overwrite",
+  "AudioFields": "Audio,Word Audio;overwrite",
+  "PlayAudioOnClick": "on",
+  "ActiveFields": [
+    "coloredhover;all;Togu Japanese;Sentence;Expression;front",
+    "coloredkanjireading;all;Togu Japanese;Sentence;Expression;back",
+    "coloredhover;all;Togu Japanese;Sentence;Meaning;back",
+
+    "coloredhover;all;MIA Japanese;Sentence;Expression;front",
+    "coloredkanjireading;all;MIA Japanese;Sentence;Expression;back",
+    "coloredhover;all;MIA Japanese;Sentence;Meaning;back",
+
+    "coloredhover;all;Togu Japanese Sentence;Standard;Sentence;front",
+    "coloredkanjireading;all;Togu Japanese Sentence;Standard;Sentence;back",
+    "coloredkanjireading;all;Togu Japanese Sentence;Standard;Target Word;back",
+    "coloredkanjireading;all;Togu Japanese Sentence;Standard;Definitions;back",
+
+    "coloredhover;all;Togu Japanese Vocabulary;Standard;Target Word;front",
+    "coloredkanjireading;all;Togu Japanese Vocabulary;Standard;Target Word;back",
+    "coloredkanjireading;all;Togu Japanese Vocabulary;Standard;Definitions;back",
+    "coloredkanjireading;all;Togu Japanese Vocabulary;Standard;Sentence;back",
+
+    "coloredkanjireading;all;Togu Japanese Audio Vocabulary;Standard;Target Word;back",
+    "coloredkanjireading;all;Togu Japanese Audio Vocabulary;Standard;Definitions;back",
+    "coloredkanjireading;all;Togu Japanese Audio Vocabulary;Standard;Sentence;back",
+
+    "coloredkanjireading;all;Togu Japanese Audio Sentence;Standard;Target Word;back",
+    "coloredkanjireading;all;Togu Japanese Audio Sentence;Standard;Definitions;back",
+    "coloredkanjireading;all;Togu Japanese Audio Sentence;Standard;Sentence;back"
+
+  ],
+  "displayAgain": true
+}

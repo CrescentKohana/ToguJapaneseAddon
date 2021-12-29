@@ -381,7 +381,7 @@ class Ui_Dialog(object):
         self.AudioRadioButtons.setFixedSize(430, 30)
         self.AudioRadioButtons.setTitle("")
         self.AudioRadioButtons.setObjectName("AudioRadioButton")
-        self.AudioRadioButtons.setStyleSheet(".QGroupBox {border:none}");
+        self.AudioRadioButtons.setStyleSheet(".QGroupBox {border:none}")
         self.horizontalLayoutWidget = QtWidgets.QWidget(self.AudioRadioButtons)
         self.horizontalLayoutWidget.setObjectName("horizontalLayoutWidget")
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget)
@@ -420,7 +420,7 @@ class Ui_Dialog(object):
         self.GraphRadioButtons.setFixedSize(430, 30)
         self.GraphRadioButtons.setTitle("")
         self.GraphRadioButtons.setObjectName("GraphRadioButton")
-        self.GraphRadioButtons.setStyleSheet(".QGroupBox {border:none}");
+        self.GraphRadioButtons.setStyleSheet(".QGroupBox {border:none}")
         self.horizontalLayoutWidgetGraphs = QtWidgets.QWidget(self.GraphRadioButtons)
         self.horizontalLayoutWidgetGraphs.setObjectName("horizontalLayoutWidget")
         self.horizontalLayoutGraphs = QtWidgets.QHBoxLayout(self.horizontalLayoutWidgetGraphs)
@@ -576,8 +576,8 @@ class Ui_Dialog(object):
                 "}")
         self.listWidget.setSortingEnabled(True)
         self.listWidget.setColumnCount(7)
-        self.listWidget.setSelectionBehavior(QtWidgets.QTableView.SelectRows);
-        self.listWidget.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff);
+        self.listWidget.setSelectionBehavior(QtWidgets.QTableView.SelectRows)
+        self.listWidget.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         tableHeader = self.listWidget.horizontalHeader()
         self.listWidget.setHorizontalHeaderLabels(
             ['Profile', 'Note Type', 'Card Type', 'Field', 'Side', 'Display Type', ''])
@@ -644,8 +644,8 @@ class Ui_Dialog(object):
                 "border-bottom: 1px solid #D8D8D8;"
                 "background-color:white;"
                 "}")
-        self.rulesTable.setSelectionBehavior(QtWidgets.QTableView.SelectRows);
-        self.rulesTable.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff);
+        self.rulesTable.setSelectionBehavior(QtWidgets.QTableView.SelectRows)
+        self.rulesTable.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         self.rulesTable.setFixedWidth(600)
         self.rulesTable.setObjectName("rulesTable")
         self.verticalLayout.addWidget(self.rulesTable)

@@ -52,7 +52,7 @@ class AccentDictionaryParser:
                 self.mecabReading = reading.MecabController()
             text = self.mecabReading.reading(text)
             return text
-        except Exception as e:
+        except Exception:
             self.mecabReading = None
             raise
 
@@ -62,7 +62,7 @@ class AccentDictionaryParser:
                 self.mecabAccents = reading.MecabController()
             results = self.mecabAccents.accents(text)
             return results
-        except Exception as e:
+        except Exception:
             self.mecabAccents = None
             raise
 
@@ -75,15 +75,18 @@ class AccentDictionaryParser:
                     break
                 if len(results[idx]) < 3:
                     return word, idx
-                if (hinshi == u'形容詞' and results[idx][0] == u'さ'
-                ) or (results[idx][1] == u"助動詞" or results[idx][1] == u"助詞" or (
-                        results[idx][1] == u"動詞" and results[idx][0] in [u'させ', u'られ', u'られる', u'られ', u'れる', u'れ', u'せ',
-                                                                         u'せる', u'させる'])) and u"格助詞" != results[idx][
-                    2] and results[idx][0] not in [u'か', u'よ', u'から', u'ので', u'の', u'が', u'だろ']:
+                if (hinshi == u'形容詞' and results[idx][0] == u'さ') or (
+                        results[idx][1] == u"助動詞" or results[idx][1] == u"助詞" or (
+                        results[idx][1] == u"動詞" and results[idx][0] in [u'させ', u'られ', u'られる',
+                                                                         u'られ', u'れる', u'れ', u'せ',
+                                                                         u'せる', u'させる']
+                )
+                ) and u"格助詞" != results[idx][2] and results[idx][0] not in [u'か', u'よ', u'から', u'ので', u'の', u'が',
+                                                                            u'だろ']:
                     word += results[idx][0]
                 else:
                     break
-        return word, idx;
+        return word, idx
 
     def separateVerbPhraseEditor(self, results, idx):
         data = self.separateVerbPhrase[results[idx][7]]
@@ -221,14 +224,14 @@ class AccentDictionaryParser:
         yomi, pitches, pitchNumAr, self.audioGraph = self.dictionary.initSearch(word[0], prevW, nextW, audioMode,
                                                                                 graphMode, wordType)
         if yomi:
-            return word[0], [idx, 0, yomi, pitches, pitchNumAr, self.audioGraph];
+            return word[0], [idx, 0, yomi, pitches, pitchNumAr, self.audioGraph]
         else:
-            return False, [idx];
+            return False, [idx]
 
     def checkCompound(self, idx, word, words, audioMode, graphMode, wordType, specifiedReading):
         og = idx
         if word[1] == u'記号' or word[1] == u'助詞' or word[0] in self.skipList:
-            return False, [og];
+            return False, [og]
         if self.checkNextWord(word, words, idx + 1):
             return self.getExceptionAccents(word, words, idx, audioMode, graphMode, wordType)
         combo = ''
@@ -244,7 +247,7 @@ class AccentDictionaryParser:
                 combined.pop(0)
                 removed = 0
                 if len(combined) == 0:
-                    return False, [og];
+                    return False, [og]
             prevW = False
             nextW = False
             if og > 0:
@@ -252,18 +255,18 @@ class AccentDictionaryParser:
             if idx + len(combined) + 1 < len(words):
                 nextW = words[idx + len(combined)]
             if combo in self.parseWithMecab:
-                return False, [og];
+                return False, [og]
             yomi, pitches, pitchNumAr, self.audioGraph = self.dictionary.initSearch(combo, prevW, nextW, audioMode,
                                                                                     graphMode, wordType,
                                                                                     self.specifiedReading)
             if yomi:
                 found = True
-                return combo, [idx + len(combined), removed, yomi, pitches, pitchNumAr, self.audioGraph];
+                return combo, [idx + len(combined), removed, yomi, pitches, pitchNumAr, self.audioGraph]
             else:
                 combo = combo[:-1]
                 combined[0] = combined[0][:-1]
                 removed += 1
-        return False, [og];
+        return False, [og]
 
     def cleanWrongYomi(self, word):
         wrongYomiDict = {u'剃[す]り': u'剃[そ]り'}
@@ -273,7 +276,7 @@ class AccentDictionaryParser:
         return word
 
     def getKanaDictPitch(self, individual=True):
-        config = self.exporter.getConfig();
+        config = self.exporter.getConfig()
         optList = config["Group:Kana;DictForm;Pitch;Audio;Graphs"].split(';')
         if individual:
             optList = config["Individual:Kana;DictForm;Pitch;Audio;Graphs"].split(';')
@@ -306,7 +309,7 @@ class AccentDictionaryParser:
             prevW = self.results[self.idx - 1]
         if self.idx + 1 < len(self.results):
             nextW = self.results[self.idx + 1]
-        return prevW, nextW;
+        return prevW, nextW
 
     def dictBasedParsing(self, results, text, individual=False, configList=False, specifiedReading=False):
         self.results = results
@@ -321,7 +324,7 @@ class AccentDictionaryParser:
                 individual)
         if (
                 not self.kanaMode and not self.dictMode and not self.pitchMode and not self.audioMode and not self.graphMode) or len(
-                results) < 1:
+            results) < 1:
             return text, False
         return self.processText(text)
 
@@ -358,8 +361,8 @@ class AccentDictionaryParser:
 
     def processVerbAdjectives(self):
         val = self.val
-        if val[0] == u'した' or (((val[1] == u"動詞" or val[1] == u'形容詞') and val[6] != u"基本形" and val[
-            0] not in self.ignoreVerbs) or self.checkJyodoushi(val[0], val[1])):
+        if val[0] == u'した' or (((val[1] == u"動詞" or val[1] == u'形容詞') and val[6] != u"基本形"
+                                and val[0] not in self.ignoreVerbs) or self.checkJyodoushi(val[0], val[1])):
             val, vAdjusted, baseWord = self.checkAdjustedVerbs(val)
             word = val[0]
             word, self.idx = self.verbCombiner(word, self.results, self.idx)
@@ -378,7 +381,7 @@ class AccentDictionaryParser:
                 baseReading = self.baseYomi(baseWord, yomi)
                 if (self.audioMode or self.graphMode) and self.audioGraph:
                     self.audioGraphList.append(self.audioGraph)
-                elif (self.audioMode or self.graphMode):
+                elif self.audioMode or self.graphMode:
                     self.audioGraphList.append(False)
                 kihonkei = ',' + yomi
                 pitches = self.getPitches(pitchAr, pitchNumAr, True)
@@ -388,9 +391,9 @@ class AccentDictionaryParser:
                         word = re.sub(r'\[.+]', '[' + baseReading + ']', word)
                 if '[' not in word:
                     word += '[]'
-                self.fStr += ' ' + word.replace(']',
-                                                self.checkMode(self.dictMode, kihonkei) + self.checkMode(self.pitchMode,
-                                                                                                         ';' + pitches) + ']') + ' '
+                self.fStr += ' ' + word.replace(
+                    ']', self.checkMode(self.dictMode, kihonkei) + self.checkMode(self.pitchMode, ';' + pitches) + ']'
+                ) + ' '
             else:
                 if self.kanaMode:
                     word = self.generateReadings(word).replace(' ', '')
@@ -400,8 +403,8 @@ class AccentDictionaryParser:
             return self.checkProceed()
         return False
 
-    ## a compound has been found but it has split a word that mecab parsed as one word
-    # this function deals with the remnant of that word and attempts to find a reading and accent information for it
+    # A compound has been found, but it has split a word that mecab parsed as one word.
+    # This function deals with the remnant of that word and attempts to find a reading and accent information for it.
     def processAlteredWord(self, altered):
         if self.kanaMode:
             if self.results[self.idx - 1][0][-altered:] in self.dictionary.suffixDict:
@@ -416,7 +419,7 @@ class AccentDictionaryParser:
 
                     if (self.audioMode or self.graphMode) and self.audioGraph:
                         self.audioGraphList.append(self.audioGraph)
-                    elif (self.audioMode or self.graphMode):
+                    elif self.audioMode or self.graphMode:
                         self.audioGraphList.append(False)
                     pitches = self.getPitches(pitchAr, pitchNumAr, True)
                     if re.match(u'^[\u3040-\u309f]+$', word) or re.match(u'^[\u30a0-\u30ff]+$', word):
@@ -507,15 +510,15 @@ class AccentDictionaryParser:
             self.attemptProcessCompoundWord()
             if (self.audioMode or self.graphMode) and self.audioGraph:
                 self.audioGraphList.append(self.audioGraph)
-            elif (self.audioMode or self.graphMode):
+            elif self.audioMode or self.graphMode:
                 self.audioGraphList.append(False)
             if self.idx == len(self.results):
                 break
         if not self.kanaMode and not self.dictMode and not self.pitchMode:
-            return text, self.audioGraphList;
+            return text, self.audioGraphList
         else:
             return self.ueMng.applyRulesToText(self.noBracketsNoSpaces(
-                self.fStr.replace('[]', '').replace(',]', ']').replace('  ', ' '))), self.audioGraphList;
+                self.fStr.replace('[]', '').replace(',]', ']').replace('  ', ' '))), self.audioGraphList
 
 
 class AccentExporter:
@@ -795,7 +798,7 @@ class AccentExporter:
                 invalids.append(char)
             else:
                 replaced += char
-        return replaced, invalids;
+        return replaced, invalids
 
     def returnInvalids(self, text, invalids):
         if len(invalids) > 0:
@@ -809,7 +812,7 @@ class AccentExporter:
         pattern = r"(?:<[^<]+?>)"
         finds = re.findall(pattern, text)
         text = re.sub(r"<[^<]+?>", HTML_REPLACER, text)
-        return finds, text;
+        return finds, text
 
     def replaceHTML(self, text, matches):
         if matches:
@@ -830,7 +833,7 @@ class AccentExporter:
         if '[' not in text and ']' not in text:
             text = self.replaceHTML(text.replace(' ', '&ensp;'), matches)
             if returnSounds:
-                return text, [];
+                return text, []
             return text
         elif ('[sound:' in text or re.search(r'\[\d', text)) and not re.search(r'\[[^s\d]', text):
             text = self.replaceHTML(text.replace(' ', '&ensp;'), matches)
@@ -838,7 +841,7 @@ class AccentExporter:
                 pattern = r"(?:\[sound:[^\]]+?\])|(?:\[\d*\])"
                 finds = re.findall(pattern, text)
                 text = re.sub(r"\[sound:[^]]+?]|\[\d*]", AUDIO_REPLACER, text)
-                return text, finds;
+                return text, finds
             return text
         if removeAudio:
             text = self.cleanSpaces(text)
@@ -852,7 +855,7 @@ class AccentExporter:
             text = self.cleanSpaces(text)
             text = self.replaceHTML(text, matches)
             if returnSounds:
-                return text, finds;
+                return text, finds
             for match in finds:
                 text = text.replace(AUDIO_REPLACER, match, 1)
             return text

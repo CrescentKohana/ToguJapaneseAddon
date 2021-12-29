@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 # 
 
+from os.path import dirname
+
 import aqt
 from aqt.qt import *
-from os.path import dirname, join
 
 addon_path = dirname(__file__)
 

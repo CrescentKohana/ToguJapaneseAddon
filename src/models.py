@@ -5,7 +5,7 @@ from shutil import copyfile
 from aqt import mw
 
 
-class MILanguageModels():
+class MILanguageModels:
     def __init__(self, mw):
         self.activeFields = [
             "coloredhover;all;Togu Japanese Sentence;Standard;Sentence;front",

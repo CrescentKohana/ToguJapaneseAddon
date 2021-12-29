@@ -62,7 +62,7 @@ class AutoCSSJSHandler:
         if config["AutoCssJsGeneration"].lower() != 'on':
             return
         variantCheck = self.checkVariantSyntax()
-        self.wrapperDict, wrapperCheck = self.getWrapperDict();
+        self.wrapperDict, wrapperCheck = self.getWrapperDict()
         models = self.mw.col.models.all()
         for model in models:
             if model['name'] in self.wrapperDict:
@@ -112,7 +112,7 @@ class AutoCSSJSHandler:
         kConfig = config['KatakanaConversion'].lower()
         katakana = 'false'
         if converter == "off" and kConfig == "off":
-            t = self.removeKanaOldJsFromTemplate(t);
+            t = self.removeKanaOldJsFromTemplate(t)
         if kConfig not in ['on', 'off']:
             miInfo(
                 '"KatakanaConversion" has an invalid value in the config. Ensure that its value is either "on" or "off".',
@@ -153,7 +153,7 @@ class AutoCSSJSHandler:
         kConfig = config['KatakanaConversion'].lower()
         katakana = 'false'
         if converter == "off" and kConfig == "off":
-            self.removeKanaOldJs();
+            self.removeKanaOldJs()
         if kConfig not in ['on', 'off']:
             miInfo(
                 '"KatakanaConversion" has an invalid value in the config. Ensure that its value is either "on" or "off".',
@@ -205,7 +205,7 @@ class AutoCSSJSHandler:
         Kataverter = join(self.addon_path, "js", "Kataverter.js")
         with open(Kataverter, "r", encoding="utf-8") as KataverterFile:
             KataverterJS = KataverterFile.read()
-        js = self.jKHeader + '<script>' + KataverterJS + '</script>' + self.jKFooter;
+        js = self.jKHeader + '<script>' + KataverterJS + '</script>' + self.jKFooter
         return js
 
     def removeConverterJs(self, text):
@@ -321,7 +321,7 @@ class AutoCSSJSHandler:
                                 conflicts) + '\n\n'
                     else:
                         notFoundErrors += '"' + item + '" in "ActiveFields" has the following error(s):\n' + errorMsg + '\n\n'
-        return (wrapperDict, True)
+        return wrapperDict, True
 
     def noteCardFieldExists(self, data):
         models = self.mw.col.models.all()
@@ -342,7 +342,7 @@ class AutoCSSJSHandler:
                     if fld['name'] == data[4] and not field:
                         field = True
         if not note:
-            return False, 'The "' + data[2] + '" note type does not exist.';
+            return False, 'The "' + data[2] + '" note type does not exist.'
 
         if not card:
             error += 'The "' + data[3] + '" card type does not exist.\n'
@@ -352,8 +352,8 @@ class AutoCSSJSHandler:
             error += 'The last value must be "front", "back", or "both", it cannot be "' + data[5] + '"'
 
         if error == '':
-            return True, False;
-        return False, error;
+            return True, False
+        return False, error
 
     def fieldConflictCheck(self, item, array, dType):
         conflicts = []
@@ -363,18 +363,18 @@ class AutoCSSJSHandler:
             if valAr == item:
                 conflicts.append('In "' + valDType + '": ' + ';'.join(valAr))
                 conflicts.append('In "' + dType + '": ' + ';'.join(item))
-                return False, conflicts;
+                return False, conflicts
             elif valAr[2] == item[2] and valAr[3] == item[3] and valAr[4] == item[4] and (
                     valAr[5] == 'both' or item[5] == 'both'):
                 conflicts.append('In "' + valDType + '": ' + ';'.join(valAr))
                 conflicts.append('In "' + dType + '": ' + ';'.join(item))
-                return False, conflicts;
-        return True, True;
+                return False, conflicts
+        return True, True
 
     def getJapaneseCss(self):
         config = self.getConfig()
         pitchColors = config['ColorsHANOK']
-        css = '.museika{width:22px;height:22px;border-radius:50% ;border:1px #db4130 dashed}.j-togu-cont{display:inline-block;}.pitch-numbers{display:inline-block;position:relative;color:#000;font-size:10px;right:2px;padding:0 2px 8px 10px;bottom:7px;vertical-align:top;text-align:right}.thumb-hover:hover{cursor:pointer}.hovered-word{cursor:pointer}.unhovered-word .kanji-ruby{color:#000}.unhovered-word .kana-ruby{visibility:hidden}.unhovered-word.japanese-word{color:#000;background:0 0}.pitch-box{position:relative}.japanese-word{position:relative;display:inline-block}.kana-ruby{display:inline-block;text-align:justify!important}.pitch-accent-popup{box-shadow:2px 2px rgba(0,0,0,.6);position:absolute;display:none;z-index:10;background-color:#fff;border:1px solid #000;border-radius:5px;white-space:nowrap;padding:8px 0 0 4px;top:105%;left:-10%}.pitch-graph-container{position:relative;display:inline-block;top:25%}.pitch-box,.pitch-drop,.pitch-overbar{display:inline-block}.japanese-word .pitch-overbar{background-color:#000}.japanese-word .pitch-drop{background-color:#000}.pitch-overbar{background-color:red;height:2px;width:100%;position:absolute;top:-3px;left:0}.pitch-drop{background-color:red;height:6px;width:2px;position:absolute;top:-3px;right:-2px}.no-ruby{padding:2px 4px 2px 4px}.no-ruby-pitch{height:100%;width:100%;margin:auto;text-align:center;line-height:100%}.pitch-shape-box{padding:4px;display:inline-block;position:relative}.pitch-circle-box-right{display:inline-block;position:relative}.pitch-circle-box-left{padding-right:1.5px;display:inline-block;position:relative}.pitch-diamond{width:8px;height:8px;transform:rotate(45deg);display:inline-block;position:relative;bottom:2px}.left-pitch-circle,.right-pitch-circle{height:12px;width:6px;display:inline-block;position:relative}.right-pitch-circle{border-bottom-right-radius:12px;border-top-right-radius:12px}.left-pitch-circle{border-bottom-left-radius:12px;border-top-left-radius:12px}.pitch-shape-box .pitch-overbar{background-color:#000}.pitch-shape-box .pitch-drop{background-color:#000}.rubyTogu{display:inline-block;padding:0;margin:0;text-align:center}.rtTogu{padding:2px 0 0 0;margin:0;vertical-align:top;text-align:center;line-height:100%}.kana-ruby{position:relative;bottom:-1.5px;z-index:5}.kana-ruby1{font-size:10%}.kana-ruby2{font-size:20%}.kana-ruby3{font-size:30%}.kana-ruby4{font-size:40%}.kana-ruby5{font-size:50%}.kana-ruby6{font-size:60%}.kana-ruby7{font-size:70%}.kana-ruby8{font-size:80%}.kana-ruby9{font-size:90%}.kana-ruby10{font-size:100%}.rbTogu{display:inline-block;padding:0;margin:0}.wrapped-japanese{visibility:hidden}.ankidroid_dark_mode .pitch-box .pitch-drop,.ankidroid_dark_mode .pitch-box .pitch-overbar,.nightMode .pitch-box .pitch-drop,.nightMode .pitch-box .pitch-overbar,.night_mode .pitch-box .pitch-drop,.night_mode .pitch-box .pitch-overbar{background-color:#fff!important}.ankidroid_dark_mode .pitch-accent-popup,.nightMode .pitch-accent-popup,.night_mode .pitch-accent-popup{background-color:#000;border:1px solid #fff;box-shadow:2px 2px rgba(0,0,0,.2)}.ankidroid_dark_mode .unhovered-word .kana-ruby,.ankidroid_dark_mode .unhovered-word .kanji-ruby,.ankidroid_dark_mode .unhovered-word.japanese-word,.nightMode .unhovered-word .kana-ruby,.nightMode .unhovered-word .kanji-ruby,.nightMode .unhovered-word.japanese-word,.night_mode .unhovered-word .kana-ruby,.night_mode .unhovered-word .kanji-ruby,.night_mode .unhovered-word.japanese-word{color:#fff}.popup-comma{color:#000}.ankidroid_dark_mode .popup-comma,.nightMode .popup-comma,.night_mode .popup-comma{color:#fff}';
+        css = '.museika{width:22px;height:22px;border-radius:50% ;border:1px #db4130 dashed}.j-togu-cont{display:inline-block;}.pitch-numbers{display:inline-block;position:relative;color:#000;font-size:10px;right:2px;padding:0 2px 8px 10px;bottom:7px;vertical-align:top;text-align:right}.thumb-hover:hover{cursor:pointer}.hovered-word{cursor:pointer}.unhovered-word .kanji-ruby{color:#000}.unhovered-word .kana-ruby{visibility:hidden}.unhovered-word.japanese-word{color:#000;background:0 0}.pitch-box{position:relative}.japanese-word{position:relative;display:inline-block}.kana-ruby{display:inline-block;text-align:justify!important}.pitch-accent-popup{box-shadow:2px 2px rgba(0,0,0,.6);position:absolute;display:none;z-index:10;background-color:#fff;border:1px solid #000;border-radius:5px;white-space:nowrap;padding:8px 0 0 4px;top:105%;left:-10%}.pitch-graph-container{position:relative;display:inline-block;top:25%}.pitch-box,.pitch-drop,.pitch-overbar{display:inline-block}.japanese-word .pitch-overbar{background-color:#000}.japanese-word .pitch-drop{background-color:#000}.pitch-overbar{background-color:red;height:2px;width:100%;position:absolute;top:-3px;left:0}.pitch-drop{background-color:red;height:6px;width:2px;position:absolute;top:-3px;right:-2px}.no-ruby{padding:2px 4px 2px 4px}.no-ruby-pitch{height:100%;width:100%;margin:auto;text-align:center;line-height:100%}.pitch-shape-box{padding:4px;display:inline-block;position:relative}.pitch-circle-box-right{display:inline-block;position:relative}.pitch-circle-box-left{padding-right:1.5px;display:inline-block;position:relative}.pitch-diamond{width:8px;height:8px;transform:rotate(45deg);display:inline-block;position:relative;bottom:2px}.left-pitch-circle,.right-pitch-circle{height:12px;width:6px;display:inline-block;position:relative}.right-pitch-circle{border-bottom-right-radius:12px;border-top-right-radius:12px}.left-pitch-circle{border-bottom-left-radius:12px;border-top-left-radius:12px}.pitch-shape-box .pitch-overbar{background-color:#000}.pitch-shape-box .pitch-drop{background-color:#000}.rubyTogu{display:inline-block;padding:0;margin:0;text-align:center}.rtTogu{padding:2px 0 0 0;margin:0;vertical-align:top;text-align:center;line-height:100%}.kana-ruby{position:relative;bottom:-1.5px;z-index:5}.kana-ruby1{font-size:10%}.kana-ruby2{font-size:20%}.kana-ruby3{font-size:30%}.kana-ruby4{font-size:40%}.kana-ruby5{font-size:50%}.kana-ruby6{font-size:60%}.kana-ruby7{font-size:70%}.kana-ruby8{font-size:80%}.kana-ruby9{font-size:90%}.kana-ruby10{font-size:100%}.rbTogu{display:inline-block;padding:0;margin:0}.wrapped-japanese{visibility:hidden}.ankidroid_dark_mode .pitch-box .pitch-drop,.ankidroid_dark_mode .pitch-box .pitch-overbar,.nightMode .pitch-box .pitch-drop,.nightMode .pitch-box .pitch-overbar,.night_mode .pitch-box .pitch-drop,.night_mode .pitch-box .pitch-overbar{background-color:#fff!important}.ankidroid_dark_mode .pitch-accent-popup,.nightMode .pitch-accent-popup,.night_mode .pitch-accent-popup{background-color:#000;border:1px solid #fff;box-shadow:2px 2px rgba(0,0,0,.2)}.ankidroid_dark_mode .unhovered-word .kana-ruby,.ankidroid_dark_mode .unhovered-word .kanji-ruby,.ankidroid_dark_mode .unhovered-word.japanese-word,.nightMode .unhovered-word .kana-ruby,.nightMode .unhovered-word .kanji-ruby,.nightMode .unhovered-word.japanese-word,.night_mode .unhovered-word .kana-ruby,.night_mode .unhovered-word .kanji-ruby,.night_mode .unhovered-word.japanese-word{color:#fff}.popup-comma{color:#000}.ankidroid_dark_mode .popup-comma,.nightMode .popup-comma,.night_mode .popup-comma{color:#fff}'
         hanok = ["heiban", "atamadaka", "nakadaka", "odaka", "kifuku"]
         count = 0
         for pitchColor in pitchColors:
@@ -432,7 +432,7 @@ class AutoCSSJSHandler:
                 back = re.sub(pattern, '{{' + field['name'] + '}}', back)
                 front = self.removeJapaneseJs(front)
                 back = self.removeJapaneseJs(back)
-        return front, back;
+        return front, back
 
     def getJapaneseJs(self, front):
         if front:

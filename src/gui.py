@@ -2,7 +2,7 @@
 # 
 
 from operator import itemgetter
-from os.path import dirname, join
+from os.path import dirname
 
 from aqt import mw
 from aqt.qt import *
@@ -13,7 +13,7 @@ from .miutils import miInfo, miAsk
 
 addon_path = dirname(__file__)
 
-verNumber = "1.2.3"
+verNumber = "2.0.2"
 
 
 class JSGui(QScrollArea):
@@ -223,7 +223,7 @@ class JSGui(QScrollArea):
         if rc > 0:
             for i in range(rc):
                 if rl.item(i, 0).text() == rule:
-                    return i;
+                    return i
         return False
 
     def restoreDefaultConfig(self):
@@ -596,7 +596,7 @@ class JSGui(QScrollArea):
             css = 'on'
         if self.ui.addToguNoteType.isChecked():
             togu = 'on'
-        return css, togu;
+        return css, togu
 
     def saveConfiguration(self):
         sc, wc = self.saveSentenceWordConfig()
@@ -656,7 +656,7 @@ class JSGui(QScrollArea):
             kc = 'on'
         if self.ui.audioOnClick.isChecked():
             poc = 'on'
-        return addtogu, bo, autocss, ds, goh, gohb, kc, poc;
+        return addtogu, bo, autocss, ds, goh, gohb, kc, poc
 
     def saveHANOK(self):
         return [self.ui.heibanColor.text(), self.ui.atamadakaColor.text(), self.ui.nakadakaColor.text(),
@@ -685,13 +685,13 @@ class JSGui(QScrollArea):
             graphConfig.append('overwrite')
         elif self.ui.graphIfEmpty.isChecked():
             graphConfig.append('no')
-        return ';'.join(audioConfig), ';'.join(graphConfig);
+        return ';'.join(audioConfig), ';'.join(graphConfig)
 
     def saveProfilesConfig(self):
         return self.selectedProfiles
 
     def saveNumberConfigOptions(self):
-        return self.ui.furiganaFontSize.value(), self.ui.lookAhead.value();
+        return self.ui.furiganaFontSize.value(), self.ui.lookAhead.value()
 
     def saveSentenceWordConfig(self):
         sentenceConfig = ['off', 'off', 'off', 'off', 'off']
@@ -716,7 +716,7 @@ class JSGui(QScrollArea):
             wordConfig[4] = 'on'
         if self.ui.wordAccents.isChecked():
             wordConfig[2] = 'on'
-        return ';'.join(sentenceConfig), ';'.join(wordConfig);
+        return ';'.join(sentenceConfig), ';'.join(wordConfig)
 
     def saveActiveFields(self):
         afList = self.ui.listWidget
@@ -840,7 +840,7 @@ class JSGui(QScrollArea):
                                                                    0).text() == 'All' or profile == "All") and afList.item(
                     i, 1).text() == nt and afList.item(i, 2).text() == ct and afList.item(i, 3).text() == field and (
                     afList.item(i, 4).text() == side or afList.item(i, 4).text() == 'Both' or side == "Both"):
-                return i + 1;
+                return i + 1
         return False
 
     def addToList(self, profile, nt, ct, field, side, dt):
@@ -860,10 +860,10 @@ class JSGui(QScrollArea):
             afList.setItem(rc, 3, QTableWidgetItem(field))
             afList.setItem(rc, 4, QTableWidgetItem(side))
             afList.setItem(rc, 5, QTableWidgetItem(dt))
-            deleteButton = QPushButton("X");
+            deleteButton = QPushButton("X")
             deleteButton.setFixedWidth(40)
             deleteButton.clicked.connect(self.removeRow)
-            afList.setCellWidget(rc, 6, deleteButton);
+            afList.setCellWidget(rc, 6, deleteButton)
             afList.setSortingEnabled(True)
 
     def removeRow(self):

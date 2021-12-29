@@ -20,7 +20,7 @@ On Linux, install xclip or xsel via package manager. For example, in Debian:
     sudo apt-get install xclip
     sudo apt-get install xsel
 
-Otherwise on Linux, you will need the gtk or PyQt5/PyQt4 modules installed.
+Otherwise, on Linux you will need the gtk or PyQt5/PyQt4 modules installed.
 
 gtk and PyQt4 modules are not available for Python 3,
 and this module does not work with PyGObject yet.
@@ -50,7 +50,6 @@ import ctypes
 import os
 import platform
 import subprocess
-import sys
 import time
 import warnings
 
@@ -63,11 +62,7 @@ HAS_DISPLAY = os.getenv("DISPLAY", False)
 
 EXCEPT_MSG = """
     Pyperclip could not find a copy/paste mechanism for your system.
-    For more information, please visit https://pyperclip.readthedocs.io/en/latest/introduction.html#not-implemented-error """
-
-PY2 = sys.version_info[0] == 2
-
-STR_OR_UNICODE = unicode if PY2 else str  # For paste(): Python 3 uses str, Python 2 uses unicode.
+    For more information, please visit https://pyperclip.readthedocs.io/en/latest/introduction.html#not-implemented-error"""
 
 ENCODING = 'utf-8'
 
@@ -95,14 +90,11 @@ class PyperclipWindowsException(PyperclipException):
 
 
 def _stringifyText(text):
-    if PY2:
-        acceptedTypes = (unicode, str, int, float, bool)
-    else:
-        acceptedTypes = (str, int, float, bool)
+    acceptedTypes = (str, int, float, bool)
     if not isinstance(text, acceptedTypes):
         raise PyperclipException(
-            'only str, int, float, and bool values can be copied to the clipboard, not %s' % (text.__class__.__name__))
-    return STR_OR_UNICODE(text)
+            'only str, int, float, and bool values can be copied to the clipboard, not %s' % text.__class__.__name__)
+    return str(text)
 
 
 def init_osx_pbcopy_clipboard():
@@ -123,7 +115,7 @@ def init_osx_pbcopy_clipboard():
 
 def init_osx_pyobjc_clipboard():
     def copy_osx_pyobjc(text):
-        '''Copy string argument to clipboard'''
+        """Copy string argument to clipboard"""
         text = _stringifyText(text)  # Converts non-str values to str.
         newStr = Foundation.NSString.stringWithString_(text).nsstring()
         newData = newStr.dataUsingEncoding_(Foundation.NSUTF8StringEncoding)
@@ -132,7 +124,7 @@ def init_osx_pyobjc_clipboard():
         board.setData_forType_(newData, AppKit.NSStringPboardType)
 
     def paste_osx_pyobjc():
-        "Returns contents of clipboard"
+        """Returns contents of clipboard"""
         board = AppKit.NSPasteboard.generalPasteboard()
         content = board.stringForType_(AppKit.NSStringPboardType)
         return content
@@ -153,7 +145,6 @@ def init_gtk_clipboard():
 
     def paste_gtk():
         clipboardContents = gtk.Clipboard().wait_for_text()
-        # for python 2, returns None if the clipboard is blank.
         if clipboardContents is None:
             return ''
         else:
@@ -186,7 +177,7 @@ def init_qt_clipboard():
 
     def paste_qt():
         cb = app.clipboard()
-        return STR_OR_UNICODE(cb.text())
+        return str(cb.text())
 
     return copy_qt, paste_qt
 
@@ -301,12 +292,8 @@ def init_no_clipboard():
         def __call__(self, *args, **kwargs):
             raise PyperclipException(EXCEPT_MSG)
 
-        if PY2:
-            def __nonzero__(self):
-                return False
-        else:
-            def __bool__(self):
-                return False
+        def __bool__(self):
+            return False
 
     return ClipboardUnavailable(), ClipboardUnavailable()
 
@@ -483,17 +470,18 @@ def init_wsl_clipboard():
     return copy_wsl, paste_wsl
 
 
-# Automatic detection of clipboard mechanisms and importing is done in deteremine_clipboard():
+# Automatic detection of clipboard mechanisms and importing is done in determine_clipboard():
 def determine_clipboard():
-    '''
+    """
     Determine the OS/platform and set the copy() and paste() functions
     accordingly.
-    '''
+    """
 
     global Foundation, AppKit, gtk, qtpy, PyQt4, PyQt5
 
     # Setup for the CYGWIN platform:
-    if 'cygwin' in platform.system().lower():  # Cygwin has a variety of values returned by platform.system(), such as 'CYGWIN_NT-6.1'
+    if 'cygwin' in platform.system().lower():
+        # Cygwin has a variety of values returned by platform.system(), such as 'CYGWIN_NT-6.1'
         # FIXME: pyperclip currently does not support Cygwin,
         # see https://github.com/asweigart/pyperclip/issues/55
         if os.path.exists('/dev/clipboard'):
@@ -560,7 +548,7 @@ def determine_clipboard():
 
 
 def set_clipboard(clipboard):
-    '''
+    """
     Explicitly sets the clipboard mechanism. The "clipboard mechanism" is how
     the copy() and paste() functions interact with the operating system to
     implement the copy/paste feature. The clipboard parameter must be one of:
@@ -573,7 +561,7 @@ def set_clipboard(clipboard):
         - klipper
         - windows (default on Windows)
         - no (this is what is set when no clipboard mechanism can be found)
-    '''
+    """
     global copy, paste
 
     clipboard_types = {'pbcopy': init_osx_pbcopy_clipboard,
@@ -594,7 +582,7 @@ def set_clipboard(clipboard):
 
 
 def lazy_load_stub_copy(text):
-    '''
+    """
     A stub function for copy(), which will load the real copy() function when
     called so that the real copy() function is used for later calls.
 
@@ -609,14 +597,14 @@ def lazy_load_stub_copy(text):
     simply calls copy() or paste() without calling set_clipboard() first,
     will fall back on whatever clipboard mechanism that determine_clipboard()
     automatically chooses.
-    '''
+    """
     global copy, paste
     copy, paste = determine_clipboard()
     return copy(text)
 
 
 def lazy_load_stub_paste():
-    '''
+    """
     A stub function for paste(), which will load the real paste() function when
     called so that the real paste() function is used for later calls.
 
@@ -631,7 +619,7 @@ def lazy_load_stub_paste():
     simply calls copy() or paste() without calling set_clipboard() first,
     will fall back on whatever clipboard mechanism that determine_clipboard()
     automatically chooses.
-    '''
+    """
     global copy, paste
     copy, paste = determine_clipboard()
     return paste()

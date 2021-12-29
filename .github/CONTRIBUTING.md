@@ -26,3 +26,8 @@ Format:
 **Description:**  
 The messages aren't showing on the console
 ```
+
+# Code
+- Maximum line length: 120 characters. Some exceptions apply.
+- [PEP8](https://www.python.org/dev/peps/pep-0008/) for Python.
+- JavaScript: [Prettier](../.prettierrc)

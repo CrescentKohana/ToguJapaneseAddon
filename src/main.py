@@ -1,53 +1,45 @@
 # -*- coding: utf-8 -*-
 # 
-from anki import models
-from os.path import dirname, join
-import sys, os, platform, re, subprocess, aqt.utils
-from anki.utils import stripHTML, isWin, isMac
-from . import reading 
-import re
-import unicodedata
-import urllib.parse
-from anki.hooks import addHook, wrap, runHook, runFilter
-from aqt.utils import shortcut, saveGeom, saveSplitter, showInfo
-import aqt.editor
 import json
-from aqt import mw
-from aqt.qt import *
-import copy
-from .miutils import miInfo
-from anki import sound
-from anki.find import Finder
-from anki import Collection
-from aqt.main import AnkiQt
-from . import models as ToguModel
-from shutil import copyfile
+from os.path import dirname
 from os.path import join, exists
+
+import aqt.editor
+import aqt.utils
+from anki import Collection
+from anki import sound
+from anki.hooks import addHook, wrap
+from aqt import mw
+from aqt.main import AnkiQt
+from aqt.qt import *
+from aqt.utils import saveGeom, saveSplitter, showInfo
 from aqt.webview import AnkiWebView
+
+from . import reading
+from .accentExporter import AccentExporter
+from .accentsDictionary import AccentsDictionary
+from .autoCSSJSHandling import AutoCSSJSHandler
+from .exceptionDicts.adjustVerbs import adjustVerbs
 from .exceptionDicts.adjustedDict import adjustedDict
 from .exceptionDicts.conditionalYomi import conditionalYomi
-from .exceptionDicts.verbToNoun import verbToNoun
-from .exceptionDicts.potentialToKihonkei import potentialToKihonkei
-from .exceptionDicts.adjustVerbs import adjustVerbs
+from .exceptionDicts.counterDict import counterDict
+from .exceptionDicts.dontCombineDict import dontCombineDict
+from .exceptionDicts.exceptionDict import exceptionDict
 from .exceptionDicts.ignoreVerbs import ignoreVerbs
+from .exceptionDicts.parseWithMecab import parseWithMecab
+from .exceptionDicts.potentialToKihonkei import potentialToKihonkei
+from .exceptionDicts.readingOnlyDict import readingOnlyDict
 from .exceptionDicts.sameYomiDifferentAccent import sameYomiDifferentAccent
 from .exceptionDicts.separateVerbPhrase import separateVerbPhrase
 from .exceptionDicts.separateWord import separateWord
-from .exceptionDicts.dontCombineDict import dontCombineDict
-from .exceptionDicts.parseWithMecab import parseWithMecab
-from .exceptionDicts.exceptionDict import exceptionDict
-from .exceptionDicts.readingOnlyDict import readingOnlyDict
-from .exceptionDicts.counterDict import counterDict
-from .exceptionDicts.suffixDict import suffixDict
 from .exceptionDicts.skipList import skipList
-from .accentsDictionary import AccentsDictionary
-from .accentExporter import AccentExporter
-from .accentExporter import AccentDictionaryParser
-from .massExporter import MassExporter
-from .autoCSSJSHandling import AutoCSSJSHandler
+from .exceptionDicts.suffixDict import suffixDict
+from .exceptionDicts.verbToNoun import verbToNoun
 from .gui import JSGui
-from .userExceptionManager import UserExceptionManager
+from .massExporter import MassExporter
+from .miutils import miInfo
 from .models import MILanguageModels
+from .userExceptionManager import UserExceptionManager
 
 colArray = False
 
@@ -86,7 +78,7 @@ def setupShortcuts(shortcuts, editor):
             {"hotkey": "F3", "name": 'extra', 'function': lambda editor=editor: mw.Exporter.individualExport(editor)},
             {"hotkey": "F4", "name": 'extra', 'function': lambda editor=editor: mw.Exporter.cleanField(editor)},
             {"hotkey": "F5", "name": 'extra', 'function': lambda editor=editor: UEManager.openAddMenu(editor)}]
-    newKeys = shortcuts;
+    newKeys = shortcuts
     for key in keys:
         newKeys = list(filter(lambda x: shortcutCheck(x[0], key['hotkey']), newKeys))
         newKeys += [(key['hotkey'] , key['function'])]
@@ -284,7 +276,8 @@ Collection.find_cards = customFind
 def getFieldName(fieldId, note):
     fields = mw.col.models.field_names(note.note_type())
     field = fields[int(fieldId)]
-    return field;
+    return field
+
 
 def bridgeReroute(self, cmd):
     if checkProfile():

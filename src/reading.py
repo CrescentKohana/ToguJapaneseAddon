@@ -21,8 +21,7 @@ BUFFER_SIZE = '819200'
 config = mw.addonManager.getConfig(__name__)
 
 kakasiArgs = ["-isjis", "-osjis", "-u", "-JH", "-KH"]
-mecabArgs = ['--node-format=%m[%f[7]] ', '--eos-format=\n',
-             '--unk-format=%m[] ']
+mecabArgs = ['--node-format=%m[%f[7]] ', '--eos-format=\n', '--unk-format=%m[] ']
 
 supportDir = os.path.join(os.path.dirname(__file__), "support")
 
@@ -31,7 +30,7 @@ def htmlReplace(text):
     pattern = r"(?:<[^<]+?>)"
     finds = re.findall(pattern, text)
     text = re.sub(r"<[^<]+?>", HTML_REPLACER, text)
-    return finds, text;
+    return finds, text
 
 
 def escapeText(text):
@@ -41,7 +40,7 @@ def escapeText(text):
     matches, text = htmlReplace(text)
 
     text = text.replace(NEWLINE_REPLACER, "<br>")
-    return matches, text;
+    return matches, text
 
 
 if sys.platform == "win32":
@@ -73,8 +72,9 @@ class MecabController(object):
 
     def setup(self):
         self.mecabCmd = mungeForPlatform(
-            [os.path.join(supportDir, "mecab")] + mecabArgs + [
-                '-d', supportDir, '-r', os.path.join(supportDir, "mecabrc"), '-b', BUFFER_SIZE])
+            [os.path.join(supportDir, "mecab")] + mecabArgs +
+            ['-d', supportDir, '-r', os.path.join(supportDir, "mecabrc"), '-b', BUFFER_SIZE]
+        )
         self.mecabCmdAlt = mungeForPlatform([
             os.path.join(supportDir, "mecab"),
             "-r", os.path.join(supportDir, "mecabrc"),

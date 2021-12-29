@@ -116,7 +116,7 @@ class RulesModel(QAbstractTableModel):
             elif section == 1:
                 return "Overwrite"
         if orientation == Qt.Vertical:
-            return section + 1;
+            return section + 1
         return None
 
     def insertRows(self, position=False, rows=1, index=QModelIndex(), original=False, overwrite=False):
@@ -149,7 +149,7 @@ class RulesModel(QAbstractTableModel):
             rule[1] = ruleDict['ov']
             self.mng.saveUEList()
             return True
-        elif (index.isValid() and 0 <= index.row() < len(self.ueList)):
+        elif index.isValid() and 0 <= index.row() < len(self.ueList):
             rule = self.ueList[index.row()]
             if index.column() == 0 and self.checkRuleValidity(value, rule[1]) and value != rule[
                 0] and self.mng.ruleExists(value, True) is False:
@@ -242,10 +242,10 @@ class UserExceptionManager:
     def addRule(self, original, overwrite, newCards, learnedCards, parentWidget, addMenu=False):
         if original == '' or overwrite == '':
             miInfo('The original and overwrite fields should not be empty.', level='not')
-            return False, False;
+            return False, False
         if original == overwrite:
             miInfo('The original and overwrite fields should not contain the same text.', level='not')
-            return False, False;
+            return False, False
         foundId = self.ruleExists(original)
         edit = False
         if foundId is not False:
@@ -264,7 +264,7 @@ class UserExceptionManager:
         if newCards or learnedCards:
             self.applyRules([[original, overwrite]], newCards, learnedCards, parentWidget)
 
-        return True, foundId;
+        return True, foundId
 
     def ruleExists(self, original, message=False):
 
@@ -320,7 +320,7 @@ class UserExceptionManager:
         per = QLabel(bar)
         per.setAlignment(Qt.AlignCenter)
         progressWidget.show()
-        return progressWidget, bar;
+        return progressWidget, bar
 
     def applyRules(self, ruleList, newCards, learnedCards, parentWidget, notes=False, message=False):
         self.activeFields = self.getActiveFields()

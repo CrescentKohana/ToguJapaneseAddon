@@ -1,0 +1,13 @@
+/.idea
+/.github
+.gitignore
+LICENSE
+README.md
+
+/src/user_files
+/src/icons
+/src/support
+/src/exceptionDicts
+/src/dict
+
+*.py

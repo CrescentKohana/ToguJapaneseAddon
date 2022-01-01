@@ -51,6 +51,7 @@ function clean_field(field) {
 function is_field(node) {
   return node.nodeName === 'DIV' && node.classList.contains('field')
 }
+
 function get_field(sel) {
   return sel.baseNode
 }

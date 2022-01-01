@@ -1,5 +1,5 @@
 function removeBracketsFromSel(text) {
-  if (text === '') {
+  if (!text) {
     return ''
   }
 
@@ -51,8 +51,11 @@ function wrapSelection(sel) {
   if (sel) {
     wrapper = document.createElement('p')
     wrapper.classList.add('selection-wrapper')
-    sel = window.getSelection()
-    if (sel.toString().length < 2) return
+    sel = getCurrentField().shadowRoot.getSelection()
+    if (sel.toString().length < 2) {
+      return
+    }
+
     if (sel.getRangeAt && sel.rangeCount) {
       range = sel.getRangeAt(0)
       return [range.startContainer, range.startOffset, range.endContainer, range.endOffset]
@@ -61,20 +64,18 @@ function wrapSelection(sel) {
 }
 
 function selBrackDelete() {
-  const sel = window.getSelection()
+  const sel = getCurrentField().shadowRoot.getSelection()
   const cur = get_field(sel)
   let ogHtml = cur.innerHTML
   let startCont, startOff, endCont, endOff
   ;[startCont, startOff, endCont, endOff] = wrapSelection(sel)
-  let offset = 0
-  if (startCont.isSameNode(endCont)) {
-    offset = 7
-  }
+
+  let offset = startCont.isSameNode(endCont) ? 7 : 0
   startCont.textContent =
     startCont.textContent.substring(0, startOff) + '--IND--' + startCont.textContent.substring(startOff)
   endCont.textContent =
     endCont.textContent.substring(0, endOff + offset) + '--IND--' + endCont.textContent.substring(endOff + offset)
-  const range = sel.toString().length
+
   const selectedText = cur.innerHTML.match(/--IND--.+--IND--/)[0]
   let removedText = removeBracketsFromSel(selectedText)
   removedText = removedText.replace(/--IND--/g, '')

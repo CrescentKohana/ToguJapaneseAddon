@@ -3,10 +3,11 @@ function wrapSelection(sel) {
   if (sel) {
     wrapper = document.createElement('p')
     wrapper.classList.add('selection-wrapper')
-    sel = window.getSelection()
+    sel = getCurrentField().shadowRoot.getSelection()
     if (sel.toString().length < 2) {
       return [sel.anchorNode, sel.anchorOffset, false, false]
     }
+
     if (sel.getRangeAt && sel.rangeCount) {
       range = sel.getRangeAt(0)
       return [range.startContainer, range.startOffset, range.endContainer, range.endOffset]
@@ -15,17 +16,14 @@ function wrapSelection(sel) {
 }
 
 function fetchIndividual() {
-  const sel = window.getSelection()
+  const sel = getCurrentField().shadowRoot.getSelection()
   const cur = get_field(sel)
   const ogHTML = cur.innerHTML
   let startCont, startOff, endCont, endOff
   ;[startCont, startOff, endCont, endOff] = wrapSelection(sel)
 
   if (endCont) {
-    let offset = 0
-    if (startCont.isSameNode(endCont)) {
-      offset = 7
-    }
+    let offset = startCont.isSameNode(endCont) ? 7 : 0
     startCont.textContent =
       startCont.textContent.substring(0, startOff) + '--IND--' + startCont.textContent.substring(startOff)
     endCont.textContent =
@@ -37,7 +35,7 @@ function fetchIndividual() {
   const newHTML = cur.innerHTML
   cur.innerHTML = ogHTML
   return pycmd(
-    'individualJExport:||:||:' + newHTML + ':||:||:' + currentField.id.substring(1) + ':||:||:' + currentNoteId
+    'individualJExport:||:||:' + newHTML + ':||:||:' + getCurrentField().ord + ':||:||:' + getNoteId()
   )
 }
 

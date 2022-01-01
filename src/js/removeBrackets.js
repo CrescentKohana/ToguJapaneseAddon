@@ -5,8 +5,8 @@ function cleanUpSpaces(text) {
 function removeBrackets() {
   const sel = getCurrentField().shadowRoot.getSelection()
   const field = get_field(sel)
-  let text = field
-  if (text === '') {
+  let text = field.textContent || field
+  if (!text) {
     return
   }
 
@@ -53,5 +53,5 @@ function removeBrackets() {
 try {
   removeBrackets()
 } catch (e) {
-  alert(e)
+  alert(e.stack)
 }

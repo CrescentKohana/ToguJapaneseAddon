@@ -13,7 +13,7 @@ from .miutils import miInfo, miAsk
 
 addon_path = dirname(__file__)
 
-verNumber = "2.0.3"
+verNumber = '2.0.4'
 
 
 class JSGui(QScrollArea):

@@ -12,7 +12,7 @@ Togu (研ぐ) is a Japanese word for "to sharpen (a blade that has gone dull)" �
 
 ### Installation
 
-1. Download the latest release.
+1. Download the [latest release](https://github.com/Luukuton/ToguJapaneseAddon/releases/latest).
 2. Extract the contents of the zip file to Anki's addons directory.
 
 ### [Contribution guidelines](./.github/CONTRIBUTING.md)

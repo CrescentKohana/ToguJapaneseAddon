@@ -28,7 +28,7 @@ function selectAllFieldNodes(field, sel) {
 }
 
 function selectText(node, sel) {
-  sel.selectAllChildren(node)
+  sel.selectAllChildren(node.parentNode)
 }
 
 function clean_field(field) {
@@ -52,6 +52,20 @@ function is_field(node) {
   return node.nodeName === 'DIV' && node.classList.contains('field')
 }
 
-function get_field(sel) {
-  return sel.baseNode
+function get_field(sel, text_only = false) {
+  if (!text_only) {
+    return sel.baseNode
+  }
+
+  let text = sel.baseNode.textContent
+  let sibling = sel.baseNode.nextSibling
+  while (sibling) {
+    if (sibling.outerHTML === '<br>' || sibling.outerHTML === '<br/>') {
+      text += sibling.outerHTML
+    } else {
+      text += sibling.textContent
+    }
+    sibling = sibling.nextSibling
+  }
+  return text
 }

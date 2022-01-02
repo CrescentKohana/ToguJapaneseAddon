@@ -1,7 +1,7 @@
 function fetchText() {
   const sel = getCurrentField().shadowRoot.getSelection()
-  const field = get_field(sel)
-  pycmd('textToJReading:||:||:' + field.textContent + ':||:||:' + getCurrentField().ord + ':||:||:' + getNoteId())
+  const field = get_field(sel, true)
+  pycmd('textToJReading:||:||:' + field + ':||:||:' + getCurrentField().ord + ':||:||:' + getNoteId())
 }
 
 try {

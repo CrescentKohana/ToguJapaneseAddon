@@ -2,7 +2,7 @@
 
 <p align="center">
 <!---<a title="Rate on AnkiWeb" href="https://ankiweb.net/shared/info/"><img src="https://glutanimate.com/logos/ankiweb-rate.svg"></a>--->
-<a title="License: GNU AGPLv3" href="https://github.com/Luukuton/togu-japanese-addon/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-GNU AGPLv3-green.svg"></a>
+<a title="License: GNU AGPLv3" href="https://github.com/CrescentKohana/togu-japanese-addon/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-GNU AGPLv3-green.svg"></a>
 
 >Adds partial support for Anki **2.1.49+**. There are still issues with some features, but it should be usable for the most part.
 
@@ -12,7 +12,7 @@ Togu (研ぐ) is a Japanese word for "to sharpen (a blade that has gone dull)" �
 
 ### Installation
 
-1. Download the [latest release](https://github.com/Luukuton/ToguJapaneseAddon/releases/latest).
+1. Download the [latest release](https://github.com/CrescentKohana/ToguJapaneseAddon/releases/latest).
 2. Extract the contents of the zip file to Anki's addons directory.
 
 ### [Contribution guidelines](./.github/CONTRIBUTING.md)
